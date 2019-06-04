@@ -1,2 +1,4 @@
 body { max-width: 600px; margin-left: auto; margin-right: auto;}
-.pickerLabel { font-weight: 700; }
+.pickerLabel { font-weight: 700; display: block; }
+
+section { margin-top: 4em; }

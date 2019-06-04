@@ -10,13 +10,16 @@
     <p>The controls below generate multi-hued color scales using new features of chroma.js. Color scales are a little more effective when they use hue as well as value. Mike Bostock's redo of a WSJ graphic is a great example.</p>
     <p>Find many stock multi-hue schemes in D3's color library, which includes favorites from R and ColorBrewer.</p>
     <section id="input">
-
+      <div id="sliders"></div>
+      <form style="margin-top: 1em;">
+        <label for="desiredColors" style="display: block; font-weight: 700;">Desired colors</label>
+        <!-- <p class="pickerLabel">Desired colors</p> -->
+        <input type="number" value=3 placeholder=3 max=200 min=3 step=1 id="desiredColors">
+      </form>
     </section>
     <section id="output">
-
+      <svg max-width=100% height=50></svg>
     </section>
-    <!-- <div class="hueInput" id="startHue"></div>
-    <div class="hueInput" id="endHue"></div> -->
   </body>
   <script src="chroma.js" charset="utf-8"></script>
   <script src="d3.min.js" charset="utf-8"></script>
