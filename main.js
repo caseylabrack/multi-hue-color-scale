@@ -45,10 +45,12 @@ const huePickerGen = (w, h) => (v) => {
 
 const huePicker = huePickerGen(400, 20)
 
-const inputs = d3.select("body").selectAll("div.inputs")
+const inputs = d3.select("section#input").selectAll("div.inputs")
   .data(initialHues)
   .enter().append("div").classed("inputs", true)
-    .append("p").html((_,i) => i ? "end hue " : "start hue ").classed("pickerLabel", true).append("div")
+  inputs
+    .append("p").html((_,i) => i ? "end hue " : "start hue ").classed("pickerLabel", true)
+  inputs
     .each(function(d) {
       this.appendChild(huePicker(d))
     })
