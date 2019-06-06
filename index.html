@@ -20,6 +20,14 @@
     </section>
     <section id="output">
       <svg max-width=100% height=50></svg>
+      <form id="formatSelect">
+        <p style="font-weight: 700; margin-bottom: .25em;">Format colors as: </p>
+        <input type="radio" name="colorformat" value="comma" id="comma" checked><label for="comma">comma-delimited list</label>
+        <input type="radio" name="colorformat" value="array" id="array"><label for="array">javascript array</label>
+        <input type="radio" name="colorformat" value="vector" id="vector"><label for="vector">Rstats vector</label>
+      </form>
+      <div id="list" style="margin-top: 1em; font-family: monospace;"></div>
+      <textarea type="text" id="output-box" value="test stuff!" style="font-family: monospace; width: 100%; resize: vertical; height: 16em;"></textarea>
     </section>
   </body>
   <script src="chroma.js" charset="utf-8"></script>

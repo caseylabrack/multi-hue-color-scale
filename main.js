@@ -32,17 +32,23 @@ const huePickerGen = (w, h) => (v) => {
   return context.canvas
 }
 
+const huePicker = huePickerGen(320, 20)
+
+//composable switch statement. unsafe.
+const switcher = validStates => actions => state => data => actions[validStates.indexOf(state)](data)
+
+const formatAsCommaList = arr => arr.join(", "),
+      formatAsArray = arr => `[${arr.map(thing => `"${thing}"`).join(", ")}]`,
+      formatAsRVector = arr => `c(${arr.map(thing => `"${thing}"`).join(", ")})`
+
+formatColors = switcher(["comma", "array", "vector"])([formatAsCommaList, formatAsArray, formatAsRVector])
+
 const hueToColor = h => chroma.hcl(h,100,50).hex(),
       colorScale = ([hue1, hue2, steps]) => chroma.bezier(["white",hueToColor(hue1),hueToColor(hue2),"black"])
                                                   .scale()
                                                   .correctLightness()
                                                   .colors(steps+2)
                                                   .filter((_,i) => i > 0 && i < steps+1) // the first and last colors are just white and black
-
-
-
-
-const huePicker = huePickerGen(320, 20)
 
 const inputs = d3.select("div#sliders").selectAll("div.inputs")
   .data(initialHues)
@@ -59,6 +65,8 @@ const update = () => {
   const inputs = d3.selectAll(".inputs").select("canvas").nodes() // get all the sliders
                 .reduce((acc, inc) => acc.concat(inc.value), []) // flatten them into an array of their values
                 .concat(+d3.select("form input").property("value")) // add the number input value to that array, too
+
+  const userFormat = d3.selectAll("input[type=radio]:checked").property("value")
 
   const svg = d3.select("#output svg")
   const width = svg.node().parentNode.getBoundingClientRect().width
@@ -79,10 +87,14 @@ const update = () => {
         .attr("width", x.bandwidth())
         .style("fill", d => d)
   update.exit().remove()
+
+  d3.select("#output-box").html(formatColors(userFormat)(colors))
 }
 
-d3.selectAll(".inputs").select("canvas").on("input", () => update())
-d3.selectAll("input[type=number]").on("input", () => update())
+d3.selectAll(".inputs").select("canvas").on("input", update)
+d3.selectAll("input[type=number]").on("input", update)
+d3.select("form#formatSelect").on("change", update)
 window.addEventListener("resize", update)
+d3.select("#output-box").on("focus", function (d) { this.select()})
 
 update()
