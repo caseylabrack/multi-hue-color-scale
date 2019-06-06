@@ -94,7 +94,11 @@ const update = () => {
 d3.selectAll(".inputs").select("canvas").on("input", update)
 d3.selectAll("input[type=number]").on("input", update)
 d3.select("form#formatSelect").on("change", update)
+d3.select("button[name=copyToClip]").on("click", function (d) {
+  d3.select("#output-box").node().select()
+  document.execCommand("copy")
+  d3.select("#copyMessage").style("opacity", 100).transition().delay(2000).duration(1000).style("opacity", 0)
+})
 window.addEventListener("resize", update)
-d3.select("#output-box").on("focus", function (d) { this.select()})
 
 update()

@@ -27,7 +27,8 @@
         <input type="radio" name="colorformat" value="vector" id="vector"><label for="vector">Rstats vector</label>
       </form>
       <div id="list" style="margin-top: 1em; font-family: monospace;"></div>
-      <textarea type="text" id="output-box" value="test stuff!" style="font-family: monospace; width: 100%; resize: vertical; height: 16em;"></textarea>
+      <textarea type="text" id="output-box" readonly style="font-family: monospace; width: 100%; resize: vertical; height: 6em;"></textarea>
+      <button type="button" name="copyToClip">Copy to clipboard</button><p id="copyMessage" style="opacity: 0; color:red; display: inline;">  Copied!</p>
     </section>
   </body>
   <script src="chroma.js" charset="utf-8"></script>
